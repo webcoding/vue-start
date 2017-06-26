@@ -54,7 +54,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 │   ├── main.js
 │   └── index.template.html
 │
-├── test        # 建议之放配置文件，具体单元测试等文件，放在项目中（src 中）
+├── test            # 只放配置文件，具体单元测试等文件，放在项目中（src 中）
 ├── static
 │   ├── img
 │   └── manifest.json
