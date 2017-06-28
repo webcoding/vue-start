@@ -31,7 +31,7 @@ export function createApp (App) {
   const app = new Vue({
     router,
     store,
-    render: h => h(App)
+    render: h => h(App),
   })
 
   // expose the app, the router and the store.

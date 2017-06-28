@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
-import App from './App';
+import Vue from 'vue'
+import App from './App'
 // import service from './services';
 // import 'es6-promise/auto'
 import { createApp } from './createApp'
@@ -32,7 +32,6 @@ Vue.config.productionTip = false
 // app.$mount('#app')
 
 
-
 // ⚙️
 // a global mixin that calls `asyncData` when a route component's params change
 Vue.mixin({
@@ -41,12 +40,12 @@ Vue.mixin({
     if (asyncData) {
       asyncData({
         store: this.$store,
-        route: to
+        route: to,
       }).then(next).catch(next)
     } else {
       next()
     }
-  }
+  },
 })
 
 const { app, router, store } = createApp(App)
@@ -128,7 +127,7 @@ router.beforeEach((to, from, next) => {
 })
 
 // service worker
-if ('https:' === location.protocol && navigator.serviceWorker) {
+if (location.protocol === 'https' && navigator.serviceWorker) {
   navigator.serviceWorker.register('/service-worker.js')
 }
 

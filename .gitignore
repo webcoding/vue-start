@@ -68,7 +68,5 @@ selenium-debug.log
 # temp
 starter
 temp/
-build
-config/
 shared
 static

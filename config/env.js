@@ -1,12 +1,17 @@
 
 // ENV
 
-import merge from 'webpack-merge'
+var merge = require('webpack-merge')
 // import { makeMap } from 'shared/util'
-// import { makeMap } from '$/shared/util'
+// import { makeMap } from '../shared/util'
 
 // const evnList = 'dev,testing,prod'
 // const isRightEnv = makeMap(evnList)
+const apis = {
+  dev: 'http://m.devapi.haoshiqi.net',
+  testing: 'http://m.devapi.haoshiqi.net',
+  prod: 'https://m.api.haoshiqi.net',
+}
 const qn = {
   prod: '',
   dev: '',
@@ -30,20 +35,21 @@ function createEnv (env) {
   return merge(prodEnv, {
     debug: true,
     name: env,
-    NODE_ENV: `'"${env}"'`,
+    NODE_ENV: `"${env}"`,
     routerMode: 'hash',
     qn: qn.dev,
   })
 }
 
-// const inputEnv = process.env.NODE_ENV || 'prod'
-const inputEnv = 'dev'
+// const inputEnv = process.env.NODE_ENV
 
 // if (isRightEnv(inputEnv)) {
 //   new Error(inputEnv + '不是有效的环境变量，请选用' + evnList)
 // }
 
-export default createEnv(inputEnv)
-// export const dev = createEnv('dev')
-// export const testing = createEnv('testing')
-// export const dev = createEnv('prod')
+module.exports = {
+  dev: createEnv('dev'),
+  testing: createEnv('testing'),
+  prod: createEnv('prod'),
+  apis: apis,
+}

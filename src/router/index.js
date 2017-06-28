@@ -24,7 +24,7 @@ export function createRouter () {
         children: [
           { path: '/', component: Index, alias: 'index' },
           { path: '/login', component: Login },
-          { path: '/profile', component: Profile, meta: { auth: true } },
+          { path: '/profile', component: Profile, meta: { auth: true }},
           { path: '/about', component: About },
         ],
       },
@@ -36,6 +36,6 @@ export function createRouter () {
       // { path: '/item/:id(\\d+)', component: ItemView },
       // { path: '/user/:id', component: UserView },
       // { path: '/', redirect: '/top' }
-    ]
+    ],
   })
 }

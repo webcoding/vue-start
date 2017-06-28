@@ -37,28 +37,28 @@
   },
   // add your custom rules here
   "rules": {
-    "semi": ["error", "never"],
     "comma-dangle": ["error", "always-multiline"],
-    "space-before-function-paren": ["error", {
-      "anonymous": "always",
-      "named": "ignore",
-      "asyncArrow": "ignore"
-    }],
     "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }],
     "no-useless-escape": 0,
     "flowtype/define-flow-type": 1,
     "flowtype/use-flow-type": 1,
     // don"t require .vue extension when importing
-    "import/extensions": ["error", "always", {
-      "js": "never",
-      "vue": "never"
-    }],
+    // "import/extensions": ["error", "always", {
+    //   "js": "never",
+    //   "vue": "never"
+    // }],
     // allow optionalDependencies
-    "import/no-extraneous-dependencies": ["error", {
-      "optionalDependencies": ["test/unit/index.js"]
-    }]
+    // "import/no-extraneous-dependencies": ["error", {
+    //   "optionalDependencies": ["test/unit/index.js"]
+    // }],
 
     // allow debugger during development
     // "no-debugger": process.env.NODE_ENV === "production" ? 2 : 0
+    "semi": ["error", "never"],
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "ignore",
+      "asyncArrow": "ignore"
+    }]
   }
 }

@@ -17,6 +17,6 @@ export default function createList (type) {
 
     render (h) {
       return h(ItemList, { props: { type }})
-    }
+    },
   }
 }
