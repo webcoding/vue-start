@@ -2,11 +2,17 @@
   "presets": [
     ["env", { "modules": false }],
     "es2015",
-    "stage-0"
+    "stage-0",
+    "flow-vue"
   ],
   "plugins": [
+    "transform-vue-jsx",
     "syntax-dynamic-import",
     "transform-runtime"
+  ],
+  "ignore": [
+    "dist/*.js",
+    "packages/**/*.js"
   ],
   "comments": false,
   "env": {

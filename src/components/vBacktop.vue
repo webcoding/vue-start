@@ -56,7 +56,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .back-to-top{
   position: fixed;
   z-index: 10;

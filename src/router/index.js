@@ -6,10 +6,10 @@ Vue.use(Router)
 
 // route-level code splitting
 import Layout from './Layout'
-import Index from '@/pages/Index'
-const Login = () => import('@/pages/Login')
-const Profile = () => import('@/pages/Profile')
-const About = () => import('@/pages/About')
+import Index from '@/views/Index'
+const Login = () => import('@/views/Login')
+const Profile = () => import('@/views/Profile')
+const About = () => import('@/views/About')
 // const createListView = id => () => import('../views/CreateListView').then(m => m.default(id))
 
 export function createRouter () {

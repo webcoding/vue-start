@@ -6,7 +6,10 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  "extends": "airbnb-base",
+  "extends": [
+    "plugin:vue-libs/recommended",
+    "plugin:flowtype/recommended"
+  ],
   // required to lint *.vue files
   "plugins": [
     "html",
