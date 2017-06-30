@@ -2,8 +2,9 @@
 
 ## 部分设计约定
 
-- 三个环境，开发dev、生产prod、自动化测试testing
-- 注入全局变量 isDEV, isProd 等，便于打包过滤
+- 开发的三个环境，本地开发dev、自动化测试 testing、其他全为生产prod
+- 如需设置代理，配置独立参数 api，此配置可以有 local dev beta prod 等
+- 注入全局变量 isDEV 等, 便于打包过滤
 - 开发环境增设一个 debug 配置页面
   - 有一些快捷操作选项，常用调试手段
   - 可设置使用指定的 API 接口（也可以输入），默认跟域名相关
@@ -14,7 +15,6 @@
   - 如要全面调试，请使用仿真环境
 - 自动化测试，使用默认的 API 接口（一般是 beta）
 - 由于服务端是可以使用 history 模式渲染路由的，便于一致性测试，本地也要启用此模式来调试
-- 目前仅仅输出 web-runtime 模式（环境：dev prod testing）
 - build
   - 暂时设计跟随项目的 build 编译工具（属于本项目）
   - 暂不考虑通用的 builder 编译工具（项目外，可多个项目共用）
@@ -59,16 +59,27 @@ packages/ModulesName/
 
 结合上述使用场景，builder 要支持通用配置，这个配置要放在项目中，只需指向项目目录，自动去加载项目配置，找到入口，打包类型等，即可打包
 
-项目配置包含的设定有：
+### 流程
 
-- 项目名称
-- 路径
-- 入口文件 如 src/main.js
-- cdn 路径 如 qn
-- 变量别名 alias: @ => ./ $ => src
+1 执行命令（如`npm run dev`）
+2 入口约定统一为 src/index.js
+2 如果未配置路径，则在当前目录下查找 config 配置（默认配置）
+3 如果配置了路径，则在路径对应目录下查找 config 配置（找不到则使用默认配置，入口为对应路径下的 src/index.js）
+4 将配置与基础配置merge 操作，然后继续执行命令
+
+config 配置常用的设置有：
+
+- 项目名称 默认 app
+- 对应路径（通过当前配置相对路径获取）
+- 输出目录（只配置路径，输出到build 外层的 dist + 此输出目录）
+- 入口文件 如 src/index.js（相对于当前目录）
+- cdn配置 如 七牛
+- 变量别名 alias: {'@': './src', $: './'}
 - 环境变量 env: dev,prod,testing
 - 运行模式 mode: client,server
-- 输出类型 target: web,node,weex
+- 运行时类型 target: web,node,weex,hybrid
+- 需要注入的变量，如 isDEV
+- 运行服务的端口
 - 加载器等
 
 是否需要 api 配置用来设置代理？

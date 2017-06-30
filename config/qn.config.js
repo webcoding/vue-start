@@ -10,9 +10,10 @@ var qnConfig = {
     ak: curASKey.ak,
     sk: curASKey.sk,
     bucket: 'xxx', // your bucket name
-    domain: 'https://img.xxx.com/',  // //xxxx.xxx.xx.glb.clouddn.com
+    domain: 'https://img.xxx.com/', // xxxx.xxx.xx.glb.clouddn.com
     path: '', // [hash]
   },
+  // ...
 }
 
 module.exports = qnConfig
