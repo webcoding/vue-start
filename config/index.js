@@ -13,7 +13,6 @@ function resolve (dir) {
 var prodPublicPath = project.qn.domain +
         (project.isSingle ? '' : (project.dir + '/'))
 
-
 // var request = require('request')
 // var url = 'https://api.devnode.cn/login/check'
 // request(url, (error, response, body) => {

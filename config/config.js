@@ -1,8 +1,9 @@
 var path = require('path')
 
+const qnConfig = require('./qn.config')
 const apiConfig = require('./api.config')
 const envConfig = require('./env.config')
-const qnConfig = require('./qn.config')
+// const targetConfig = require('./target.config')
 
 /**
  * 一些配置
@@ -21,22 +22,26 @@ const appName = 'app'
 
 const project = {
   name: appName,
-  dir: resolve('./'),
-  dist: appName,
+  dir: appName,
+  root: resolve('./'),
+  src: resolve('./src'),
+  dist: resolve('./dist/' + appName),
 }
+console.log(resolve('/src/assets'))
 
 module.exports = {
   appName: project.name,
-  appDir: project.dir,
+  appRoot: project.root,
+  appSrc: project.src,
   index: 'index.html', // 引用文件，相对于 assetsRoot
-  template: project.dir + '/index.html',
-  entry: '',
+  template: project.root + '/index.html',
+  entry: project.src,  // './src/index.js'
   alias: {
-    '@': './src',
-    $: './',
+    '@': resolve('src'),
   },
   injectConst: {
     isDev: '',
+    isHybrid: '',
   },
   prod: {
     env: envConfig['prod'],
@@ -44,7 +49,7 @@ module.exports = {
     mode: 'client',
     target: 'web',
     // 无需编译的静态资源目录，会拷贝到 dist/assets 中
-    staticPath: resolve(project.dir + '/src/assets'),
+    staticPath: resolve('/src/assets'),
     // 编译输出，引用资源的注入
     index: resolve(project.dist + '/index.html'),
   },

@@ -8,8 +8,8 @@ const API = {
   beta: 'beta.iqianggou.com',
   alpha: 'alpha.iqianggou.com',
   staging: 'staging.iqianggou.com',
-  prod: 'https://openapi.iqianggou.com',
-  testing: '',
+  prod: 'openapi.iqianggou.com',
+  testing: 'beta.iqianggou.com',
 }
 
 // exports.API = API

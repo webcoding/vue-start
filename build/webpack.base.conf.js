@@ -4,12 +4,13 @@ var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve (dir) {
+  // 相对于此文件做在目录
   return path.join(__dirname, '..', dir)
 }
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src'
   },
   output: {
     path: config.build.assetsRoot,
@@ -22,8 +23,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '$': resolve('./'),
-      '@': resolve('src')
+      '$': resolve('/'),  // build 项目路径根目录
+      '@': resolve('src') // 项目的 src 的根目录
     }
   },
   module: {
