@@ -1,6 +1,7 @@
 var path = require('path')
 // see http://vuejs-templates.github.io/webpack for documentation.
-var env = require('./env')
+var envConfig = require('./env.config')
+var apiConfig = require('./api.config')
 
 // 关于项目配置，应该读取项目根目录下 config 独立配置，扩展性更好
 var project = require('./project')
@@ -30,7 +31,7 @@ module.exports = {
   index: 'index.html', // 引用文件，相对于 assetsRoot
   template: project.dir + '/index.html',
   build: {
-    env: env.prod,
+    env: envConfig.prod,
     // 无需编译的静态资源目录，会拷贝到 dist/assets 中
     staticPath: resolve(project.dir + '/src/assets'),
     // 编译输出，引用资源的注入
@@ -55,7 +56,7 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report,
   },
   dev: {
-    env: env.dev,
+    env: envConfig.dev,
     port: project.port,
     autoOpenBrowser: true,
     assetsSubDirectory: 'assets',
@@ -66,7 +67,7 @@ module.exports = {
       // 如果把 cookie 设置为HttpOnly，则可能无法通过代理传递 cookie
       // proxy all requests starting with /api to jsonplaceholder
       '/proxy': {
-        target: env.apis['dev'],
+        target: apiConfig['dev'],
         changeOrigin: true,
         // true/false, if you want to verify the SSL Certs
         // secure: false,

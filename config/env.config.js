@@ -7,11 +7,6 @@ var merge = require('webpack-merge')
 
 // const evnList = 'dev,testing,prod'
 // const isRightEnv = makeMap(evnList)
-const apis = {
-  dev: 'http://m.devapi.haoshiqi.net',
-  testing: 'http://m.devapi.haoshiqi.net',
-  prod: 'https://m.api.haoshiqi.net',
-}
 const qn = {
   prod: '',
   dev: '',
@@ -51,5 +46,4 @@ module.exports = {
   dev: createEnv('dev'),
   testing: createEnv('testing'),
   prod: createEnv('prod'),
-  apis: apis,
 }
