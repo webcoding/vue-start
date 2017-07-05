@@ -1,46 +1,68 @@
 var path = require('path')
-// see http://vuejs-templates.github.io/webpack for documentation.
-var envConfig = require('./env.config')
-var apiConfig = require('./api.config')
 
-// 关于项目配置，应该读取项目根目录下 config 独立配置，扩展性更好
-var project = require('./project')
+const apiConfig = require('./api.config')
+const envConfig = require('./env.config')
+const cdnConfig = require('./cdn.config')
+// const targetConfig = require('./target.config')
 
+/**
+ * 一些配置
+ * 环境变量 env: dev,prod,testing
+ * 运行模式 mode: client,server
+ * 运行时类型 target: web,node,weex,hybrid
+ */
+
+// 使用 __dirname 而不是process.cwd()，好处是前者配置稳定，运行命令时在根目录或子目录都可以运行
+//
 function resolve (dir) {
   return path.join(__dirname, '../' + dir)
 }
+var useCdn = true
 
-var prodPublicPath = project.qn.domain +
-        (project.isSingle ? '' : (project.dir + '/'))
+const appName = 'app'
+const project = {
+  name: appName,
+  dir: appName,
+  root: resolve('./'),
+  src: resolve('./src'),
+  dist: resolve('./dist/' + appName),
+}
+const CDN = cdnConfig.create(appName);
+if(!useCdn){
+  CDN.plugins = [];
+}
+console.log(project)
 
-// var request = require('request')
-// var url = 'https://api.devnode.cn/login/check'
-// request(url, (error, response, body) => {
-//   console.log(error)
-//   console.log(response.headers)
-//   console.log(response.headers['set-cookie'])
-// })
-
-var cookie
+var cookie;
 module.exports = {
-  qnConfig: project.qn,
-  // target: 'web',
   appName: project.name,
-  appDir: project.dir,
+  appRoot: project.root,
+  appSrc: project.src,
   index: 'index.html', // 引用文件，相对于 assetsRoot
-  template: project.dir + '/index.html',
+  template: project.root + '/index.html',
+  entry: project.src,  // './src/index.js'
+  alias: {
+    '@': resolve('src'),
+  },
+  injectConst: {
+    isDev: '',
+    isHybrid: '',
+  },
   build: {
-    env: envConfig.prod,
+    env: envConfig['prod'],
+    mode: 'client',
+    target: 'web',
     // 无需编译的静态资源目录，会拷贝到 dist/assets 中
-    staticPath: resolve(project.dir + '/src/assets'),
+    staticPath: resolve('/src/assets'),
     // 编译输出，引用资源的注入
-    index: resolve(project.dist + '/index.html'),
+    index: project.dist + '/index.html',
     // 所有输出文件的目标路径，必须绝对路径
-    assetsRoot: resolve(project.dist),
+    assetsRoot: project.dist,
     // 输出解析文件的目录，url 相对于 HTML 页面
     assetsSubDirectory: 'assets/',
-    assetsPublicPath: prodPublicPath, // 不使用 cdn，设为空
-    // assetsPublicPath: 'https://cdn.xxx.cn/' + project.dir, // 这里可以设置 cdn
+    // 发布的资源路径，可以设置 CDN，不使用 cdn，设为空
+    // 如 'https://cdn.xxx.cn/xxx/path'
+    assetsPublicPath: useCdn ? CDN.publicPath : '',
     productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -53,10 +75,16 @@ module.exports = {
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report,
+    plugins: [
+      ...CDN.plugins,
+    ],
   },
   dev: {
-    env: envConfig.dev,
-    port: project.port,
+    port: envConfig['dev'].port,
+    env: envConfig['dev'],
+    mode: 'client',
+    target: 'web',
+    api: apiConfig['dev'],
     autoOpenBrowser: true,
     assetsSubDirectory: 'assets',
     assetsPublicPath: '',
