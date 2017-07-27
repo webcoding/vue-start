@@ -42,13 +42,13 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 │   ├── assets      # 静态资源
 │   │   └── ...
 │   ├── components  # 公共组件
-│   ├── pages       # 页面
 │   ├── router      # 路由
 │   ├── services    # api 相关模块
 │   │   └── mock        # 模拟数据
 │   ├── setting     # 项目参数设置
 │   ├── store       # vuex
 │   ├── util        # 工具
+│   ├── views       # 页面 pages
 │   ├── App.vue
 │   ├── createApp.js
 │   ├── main.js
@@ -56,7 +56,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 │
 ├── test            # 只放配置文件，具体单元测试等文件，放在项目中（src 中）
 ├── static
-│   ├── img
+│   ├── img/icons
 │   └── manifest.json
 │
 ├── .xxxrc          # 各种开发配置

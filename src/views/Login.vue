@@ -39,6 +39,7 @@ export default {
     ...mapActions([USER_SIGNIN]),
 
     submitLogin() {
+      console.log('submit')
       this.btn = true
 
       if (!this.form.id || !this.form.name) return

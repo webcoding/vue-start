@@ -1,7 +1,7 @@
 <template>
-  <div class="zt">
+  <section class="layout-zt">
     <router-view class="page"></router-view>
-  </div>
+  </section>
 </template>
 
 <script>

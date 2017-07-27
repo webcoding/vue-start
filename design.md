@@ -36,7 +36,7 @@
 
 每个组件格式如下，每个组件资源放在vue-custom/packages/下组件同名的文件夹内
 
-```
+```shell
 packages/ModulesName/
    |--- src/ 该组件相关实现
    |--- demo/ 该组件使用示例 demo

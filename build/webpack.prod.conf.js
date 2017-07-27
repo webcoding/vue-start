@@ -11,7 +11,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
-var envConfig = require('../env')
+var envConfig = require('../config/env.config')
 var env = process.env.NODE_ENV === 'testing'
   ? envConfig.testing
   : config.build.env
@@ -56,9 +56,9 @@ var webpackConfig = merge(baseWebpackConfig, {
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: process.env.NODE_ENV === 'testing'
-        ? 'index.html'
+        ? config.index
         : config.build.index,
-      template: 'index.html',
+      template: config.template,
       inject: true,
       minify: {
         removeComments: true,
@@ -95,19 +95,23 @@ var webpackConfig = merge(baseWebpackConfig, {
     // copy custom static assets
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../static'),
+        // from: config.build.staticPath,
+        // tp: config.build.staticDist,
+        from: config.build.assetsPath,
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
     ]),
     // service worker caching
     new SWPrecacheWebpackPlugin({
-      cacheId: 'my-vue-app',
+      cacheId: 'vue-app',
       filename: 'service-worker.js',
       staticFileGlobs: ['dist/**/*.{js,html,css}'],
       minify: true,
       stripPrefix: 'dist/'
-    })
+    }),
+
+    ...config.build.plugins,
   ]
 })
 

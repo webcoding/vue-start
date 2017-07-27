@@ -4,7 +4,7 @@ const apiConfig = require('./api.config')
 const envConfig = require('./env.config')
 const cdnConfig = require('./cdn.config')
 // const targetConfig = require('./target.config')
-
+const env = process.env.NODE_ENV || 'prod'
 /**
  * 一些配置
  * 环境变量 env: dev,prod,testing
@@ -19,13 +19,15 @@ function resolve (dir) {
 }
 var useCdn = true
 
-const appName = 'app'
+// 默认应该是当前文件夹下的 src，如果传入路径
+const appName = process.env.npm_config_path || ''
+const appPath = appName || './'
 const project = {
-  name: appName,
-  dir: appName,
-  root: resolve('./'),
-  src: resolve('./src'),
-  dist: resolve('./dist/' + appName),
+  name: appName || 'app',
+  dir: appName || 'app',
+  root: resolve(`${appPath}`),
+  src: resolve(`${appPath}/src`),
+  dist: resolve(`dist/${appName}`),
 }
 const CDN = cdnConfig.create(appName);
 if(!useCdn){
@@ -35,6 +37,7 @@ console.log(project)
 
 var cookie;
 module.exports = {
+  env: envConfig[env],
   appName: project.name,
   appRoot: project.root,
   appSrc: project.src,
@@ -42,7 +45,7 @@ module.exports = {
   template: project.root + '/index.html',
   entry: project.src,  // './src/index.js'
   alias: {
-    '@': resolve('src'),
+    // '@': resolve('src'),
   },
   injectConst: {
     isDev: '',
@@ -52,8 +55,9 @@ module.exports = {
     env: envConfig['prod'],
     mode: 'client',
     target: 'web',
-    // 无需编译的静态资源目录，会拷贝到 dist/assets 中
-    staticPath: resolve('/src/assets'),
+    // 无需编译的静态资源目录，会拷贝到 dist/static 中
+    staticPath: resolve('/static'),
+    assetsPath: project.src + '/assets',
     // 编译输出，引用资源的注入
     index: project.dist + '/index.html',
     // 所有输出文件的目标路径，必须绝对路径

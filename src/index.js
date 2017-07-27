@@ -91,6 +91,8 @@ router.onReady(() => {
 const loginPath = '/login'
 let logged
 async function checkAuth() {
+  logged = true
+  console.log(logged)
   // const res = await ajaxApi.checkLogin()
   // if (res.errno === 0) {
   //   logged = true

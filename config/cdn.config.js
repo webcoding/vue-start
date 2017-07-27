@@ -8,6 +8,7 @@ var cdnList = {
     bucket: 'xxx',  // your bucket name
     domain: 'https://img.xxx.com/', //xxxx.xxx.xx.glb.clouddn.com
     prefix: '',     // 路径前缀，如 zt/
+    path: '',       // 路径: [hash] 或 zt/lie
   },
 }
 
@@ -18,6 +19,7 @@ var qiniuPlugin = function(cdn){
     SECRET_KEY: curASKey.sk,
     bucket: cdn.bucket,
     prefix: cdn.key,
+    path: cdn.path,
   });
 }
 
